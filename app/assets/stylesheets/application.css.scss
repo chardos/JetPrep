@@ -56,12 +56,15 @@ h1{
   width: 33px;
   height: 30px;
   background-image: image-url("ticks.png");
+  z-index: 10;
 }
 .pack-list__input{
   display: none;
   position: absolute;
   top: 0px;
-  left: 50px;
+  left: 0px;
+  padding-left: 50px;
+  width: 100%;
   height: 100%;
 }
 
@@ -72,6 +75,7 @@ h1{
   top: 5px;
   right: 40px;
   padding: 10px;
+  z-index: 5;
 }
 .pack-list__delete{
   cursor: pointer;

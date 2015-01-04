@@ -9,7 +9,13 @@ J.list.toggleListItem = function(){
   });
 }
 
-J.list.editListItem = function(){
+J.list.closeEdit = function(){
+  var textVal = $('.is-editing .pack-list__input').val();
+  $('.is-editing .pack-list__label').html(textVal);
+  $('.is-editing').removeClass('is-editing');
+}
+
+J.list.editListItemInit = function(){
 
   //open edit mode
   $('.pack-list').on('click', '.pack-list__edit', function(e){
@@ -20,23 +26,28 @@ J.list.editListItem = function(){
 
   });
 
-  //close edit mode
+  //on document click, close edit
   $(document).on('click', function(e){
-    if ( $('.is-editing').length &&
-        !$(e.target).closest('.is-editing').length) 
-         //is-editing is taking place && click is not on the is-editing div 
+    if ( $('.is-editing').length && !$(e.target).closest('.is-editing').length) 
+    //if: is-editing is taking place && click is not on the is-editing div 
     { 
-      var textVal = $('.is-editing .pack-list__input').val();
-      $('.is-editing .pack-list__label').html(textVal);
-      $('.is-editing').removeClass('is-editing');
+      J.list.closeEdit();
     }
-  })
+  });
+
+  //on enter key, close edit
+  $('.pack-list').on('keypress', '.pack-list__input', function(e){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+      J.list.closeEdit();
+    }
+  });
 
 }
 
 J.list.init = function(){
   this.toggleListItem();
-  this.editListItem();
+  this.editListItemInit();
 }
 
 $(document).ready(function(){
