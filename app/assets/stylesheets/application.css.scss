@@ -1,0 +1,92 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "compass";
+
+@import "compass/utilities/sprites";
+@import "icons/*.png";
+@include all-icons-sprites(true);
+
+h1{
+  margin-bottom: 30px;
+}
+
+.nav{
+  border-bottom: 1px solid #ccc;
+}
+
+
+.pack-list{
+  padding-left: 0;
+}
+
+.pack-list__item{
+  cursor: pointer;
+  position: relative;
+  padding: 12px 10px 12px 50px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  list-style-type: none;
+  margin-bottom: 10px;
+
+  &.checked{
+    border-color: #3DBD4B;
+    background-color: #ECFEEC;
+  }
+}
+
+.pack-list__checkbox{
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 33px;
+  height: 30px;
+  background-image: image-url("ticks.png");
+}
+.pack-list__input{
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+  height: 100%;
+}
+
+
+.pack-list__edit{
+  position: absolute;
+  top: 5px;
+  right: 40px;
+  padding: 10px;
+}
+.pack-list__delete{
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  padding: 10px;
+}
+
+//states
+
+.checked .pack-list__checkbox{
+  background-position: 0 -30px;
+}
+.editing .pack-list__input{
+  display: block;
+}
+
+
+
