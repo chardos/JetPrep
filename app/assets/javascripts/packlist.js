@@ -14,16 +14,17 @@ J.list.closeEdit = function(){
   $('.is-editing .pack-list__label').html(textVal);
   $('.is-editing').removeClass('is-editing');
 }
-
+J.list.openEdit = function($el){
+  $el.parent().addClass('is-editing');
+  var labelVal = $el.siblings('.pack-list__label').html();
+  $el.siblings('.pack-list__input').val(labelVal);
+  $el.siblings('.pack-list__input').focus().select();
+}
 J.list.editListItemInit = function(){
 
   //open edit mode
   $('.pack-list').on('click', '.pack-list__edit', function(e){
-    $(this).parent().addClass('is-editing');
-    var labelVal = $(this).siblings('.pack-list__label').html();
-    $(this).siblings('.pack-list__input').val(labelVal);
-    $(this).siblings('.pack-list__input').focus().select();
-
+    J.list.openEdit( $(this) );
   });
 
   //on document click, close edit
@@ -42,14 +43,35 @@ J.list.editListItemInit = function(){
       J.list.closeEdit();
     }
   });
+}
 
+J.list.addListItem = function(){
+  $('.js-add-item').on('click', function(){
+    var el = '<li class="pack-list__item"><div class="pack-list__checkbox"></div><input class="pack-list__input" type="text"><span class="pack-list__label"></span><span class="pack-list__edit glyphicon glyphicon-pencil" aria-hidden="true"></span><span class="pack-list__delete glyphicon glyphicon-trash" aria-hidden="true"></span></li>'
+    $('.pack-list').append(el);
+    setTimeout(function(){
+      J.list.openEdit( $('.pack-list__item:last').find('.pack-list__edit') );
+    },50)
+  });
+}
+
+J.list.deleteListItem = function(){
+  $('.pack-list').on('click', '.pack-list__delete', function(e){
+      $(this).parent().remove();
+  });
 }
 
 J.list.init = function(){
   this.toggleListItem();
   this.editListItemInit();
+  this.deleteListItem();
+  this.addListItem();
 }
 
 $(document).ready(function(){
   J.list.init(); 
 })
+
+
+
+
