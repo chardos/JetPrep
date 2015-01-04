@@ -35,7 +35,6 @@ h1{
 }
 
 .pack-list__item{
-  cursor: pointer;
   position: relative;
   padding: 12px 10px 12px 50px;
   border-radius: 8px;
@@ -43,13 +42,14 @@ h1{
   list-style-type: none;
   margin-bottom: 10px;
 
-  &.checked{
+  &.is-checked{
     border-color: #3DBD4B;
     background-color: #ECFEEC;
   }
 }
 
 .pack-list__checkbox{
+  cursor: pointer;
   position: absolute;
   top: 7px;
   left: 7px;
@@ -67,12 +67,14 @@ h1{
 
 
 .pack-list__edit{
+  cursor: pointer;
   position: absolute;
   top: 5px;
   right: 40px;
   padding: 10px;
 }
 .pack-list__delete{
+  cursor: pointer;
   position: absolute;
   top: 5px;
   right: 8px;
@@ -81,10 +83,10 @@ h1{
 
 //states
 
-.checked .pack-list__checkbox{
+.is-checked .pack-list__checkbox{
   background-position: 0 -30px;
 }
-.editing .pack-list__input{
+.is-editing .pack-list__input{
   display: block;
 }
 
