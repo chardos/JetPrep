@@ -28,6 +28,10 @@ J.list.editListItemInit = function(){
     J.list.openEdit( $(this) );
   });
 
+  //on double click, open edit
+  $('.pack-list').on('dblclick', '.pack-list__item', function(e){
+    J.list.openEdit( $(this).find('.pack-list__edit') );
+  });
   //on document click, close edit
   $(document).on('click', function(e){
     if ( $('.is-editing').length && !$(e.target).closest('.is-editing').length) 
@@ -39,7 +43,7 @@ J.list.editListItemInit = function(){
   });
 
   //on enter key, close edit
-  $('.pack-list').on('keypress', '.pack-list__input', function(e){
+  $('.pack-list').on('keypress', '.pack-list__input', function(event){
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if(keycode == '13'){
       J.list.closeEdit();
@@ -50,7 +54,8 @@ J.list.editListItemInit = function(){
 
 J.list.addListItemInit = function(){
   $('.js-add-item').on('click', function(){
-    var el = '<li class="pack-list__item"><div class="pack-list__checkbox"></div><input class="pack-list__input" type="text"><span class="pack-list__label"></span><span class="pack-list__edit glyphicon glyphicon-pencil" aria-hidden="true"></span><span class="pack-list__delete glyphicon glyphicon-trash" aria-hidden="true"></span></li>'
+    var el = J.list.constructListItem('New item', false)
+    //var el = '<li class="pack-list__item"><div class="pack-list__checkbox"></div><input class="pack-list__input" type="text"><span class="pack-list__label"></span><span class="pack-list__edit glyphicon glyphicon-pencil" aria-hidden="true"></span><span class="pack-list__delete glyphicon glyphicon-trash" aria-hidden="true"></span></li>'
     $('.pack-list').append(el);
     setTimeout(function(){
       J.list.openEdit( $('.pack-list__item:last').find('.pack-list__edit') );
