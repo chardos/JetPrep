@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   #get 'packlist/index'
   root "packlist#index"
 
