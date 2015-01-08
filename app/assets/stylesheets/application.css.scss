@@ -28,7 +28,13 @@ h1{
 .nav{
   border-bottom: 1px solid #ccc;
 }
-
+.nav__title{
+  float: left;
+}
+.nav__links{
+  padding-top: 20px;
+  float: right;
+}
 
 .pack-list{
   padding-left: 0;
