@@ -14,6 +14,7 @@ J.list.closeEdit = function(){
   var textVal = $('.is-editing .pack-list__input').val();
   $('.is-editing .pack-list__label').html(textVal);
   $('.is-editing').removeClass('is-editing');
+  J.list.saveToCookies();
 }
 J.list.openEdit = function($el){
   $el.parent().addClass('is-editing');
@@ -21,6 +22,8 @@ J.list.openEdit = function($el){
   $el.siblings('.pack-list__input').val(labelVal);
   $el.siblings('.pack-list__input').focus().select();
 }
+
+
 J.list.editListItemInit = function(){
 
   //open edit mode
@@ -38,7 +41,6 @@ J.list.editListItemInit = function(){
     //if: is-editing is taking place && click is not on the is-editing div 
     { 
       J.list.closeEdit();
-      J.list.saveToCookies();
     }
   });
 
@@ -47,7 +49,6 @@ J.list.editListItemInit = function(){
     var keycode = (event.keyCode ? event.keyCode : event.which);
     if(keycode == '13'){
       J.list.closeEdit();
-      J.list.saveToCookies();
     }
   });
 }
