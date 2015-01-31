@@ -3,7 +3,6 @@ var J = J || {};
 J.list = {};
 
 J.list.toggleListItem = function(){
-
   $('.pack-list').on('click', '.pack-list__checkbox', function(e){
       $(this).parent().toggleClass('is-checked');
       J.list.saveToCookies();
@@ -15,7 +14,15 @@ J.list.closeEdit = function(){
   $('.is-editing .pack-list__label').html(textVal);
   $('.is-editing').removeClass('is-editing');
   J.list.saveToCookies();
+  $.ajax({
+    url: "pack_list/save_to_db", 
+    type: "POST",
+    success: function(result){
+      console.log(result);
+    }
+  });
 }
+
 J.list.openEdit = function($el){
   $el.parent().addClass('is-editing');
   var labelVal = $el.siblings('.pack-list__label').html();

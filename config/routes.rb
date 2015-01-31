@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
-  #get 'packlist/index'
-  root "packlist#index"
+  root "pack_list#index"
+  get 'pack_list/index'
+  post 'pack_list/save_to_db'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
