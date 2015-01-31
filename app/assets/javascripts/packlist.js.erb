@@ -14,13 +14,7 @@ J.list.closeEdit = function(){
   $('.is-editing .pack-list__label').html(textVal);
   $('.is-editing').removeClass('is-editing');
   J.list.saveToCookies();
-  $.ajax({
-    url: "pack_list/save_to_db", 
-    type: "POST",
-    success: function(result){
-      console.log(result);
-    }
-  });
+  
 }
 
 J.list.openEdit = function($el){
@@ -89,8 +83,23 @@ J.list.saveToCookies = function(){
     saveData[index].label = label; 
     saveData[index].checked = checked; 
   });
-  //set data in cookie
-  $.cookie("list", JSON.stringify( saveData ), { expires : 999 });
+
+  //set data in DB or cookie
+  if ( jQuery.cookie("signed_in") == 1 ){
+    console.log('signed in')
+    $.ajax({
+      url: "pack_list/save_to_db", 
+      type: "POST",
+      data: { list: JSON.stringify( saveData ) },
+      success: function(result){
+        console.log(result);
+      }
+    });
+  }
+  else if ( jQuery.cookie("signed_in") == 0 ){
+    console.log('signed out')
+    $.cookie("list", JSON.stringify( saveData ), { expires : 999 });
+  }
 }
 
 J.list.constructListItem = function(label, checked){
@@ -106,14 +115,34 @@ J.list.constructListItem = function(label, checked){
 }
 
 J.list.retrieveFromCookies = function(){
-  var retrieved = JSON.parse($.cookie().list);
-  for (var key in retrieved) {
-    var obj = retrieved[key];
-    console.log(obj);
-    var $el = this.constructListItem( obj.label, obj.checked );
-    $('.pack-list').append($el)
-    
+  
+  var retrieved;
+  function constructList(){
+    for (var key in retrieved) {
+      var obj = retrieved[key];
+      console.log(obj);
+      var $el = J.list.constructListItem( obj.label, obj.checked );
+      $('.pack-list').append($el)
+    }
   }
+
+  if ( jQuery.cookie("signed_in") == 1 ){
+    $.ajax({
+      url: "pack_list/retrieve_from_db", 
+      type: "POST",
+      success: function(result){
+        retrieved = JSON.parse(result)
+        constructList();
+      }
+    });
+  }
+  else if ( jQuery.cookie("signed_in") == 0 ){
+    retrieved = JSON.parse($.cookie().list);
+    constructList();
+  }
+  
+  
+  
 }
 
 J.list.init = function(){
