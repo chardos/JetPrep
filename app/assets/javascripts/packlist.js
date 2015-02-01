@@ -44,7 +44,8 @@ J.list.retrieveFromDatabase = function(){
     }
   }
 
-  if ( jQuery.cookie("signed_in") == 1 ){
+  //If logged in: retrieve data from DB
+  if ( $.cookie("signed_in") == 1 ){
     $.ajax({
       url: "pack_list/retrieve_from_db", 
       type: "POST",
@@ -54,9 +55,18 @@ J.list.retrieveFromDatabase = function(){
       }
     });
   }
-  else if ( jQuery.cookie("signed_in") == 0 ){
+  //If not logged in: retrieve data from COOKIES
+  else if ( $.cookie("signed_in") == 0 ){
     retrieved = JSON.parse($.cookie().list);
     constructList();
+  }
+  //If just registered: retrieve data from COOKIES, then save to DB.
+  else if ( $.cookie("signed_in") == 'Just registered'){
+    retrieved = JSON.parse( $.cookie().list );
+    constructList();
+    $.cookie("signed_in", 1);
+    J.list.saveToDatabase();
+    $.removeCookie("list");
   }
   
 }
