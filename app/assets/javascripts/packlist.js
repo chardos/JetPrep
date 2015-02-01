@@ -50,19 +50,25 @@ J.list.retrieveFromDatabase = function(){
       url: "pack_list/retrieve_from_db", 
       type: "POST",
       success: function(result){
-        retrieved = JSON.parse(result)
+        if (result){
+          retrieved = JSON.parse(result)
+        }
         constructList();
       }
     });
   }
   //If not logged in: retrieve data from COOKIES
   else if ( $.cookie("signed_in") == 0 ){
-    retrieved = JSON.parse($.cookie().list);
+    if ( $.cookie().list ){
+      retrieved = JSON.parse($.cookie().list);
+    }
     constructList();
   }
   //If just registered: retrieve data from COOKIES, then save to DB.
   else if ( $.cookie("signed_in") == 'Just registered'){
-    retrieved = JSON.parse( $.cookie().list );
+    if ( $.cookie().list ){
+      retrieved = JSON.parse( $.cookie().list );
+    }
     constructList();
     $.cookie("signed_in", 1);
     J.list.saveToDatabase();
