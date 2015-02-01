@@ -77,12 +77,25 @@ J.list.retrieveFromDatabase = function(){
   
 }
 
+J.list.sortableInit = function () {
+  var list = $('.pack-list')[0];
+  Sortable.create(list, {
+    animation: 150,
+    onUpdate: function (e){
+      J.list.saveToDatabase();
+    }
+  }); 
+}
+
 J.list.init = function(){
   this.toggleListItem();
   this.editListItemInit();
   this.deleteListItemInit();
   this.addListItemInit();
   this.retrieveFromDatabase();
+  this.sortableInit();
+
+  
 }
 
 $(document).ready(function(){
