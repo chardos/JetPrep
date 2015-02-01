@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   post 'pack_list/save_to_db'
   post 'pack_list/retrieve_from_db'
 
-  #devise_for :users
-  devise_for :users, controllers: { sessions: "users/sessions" }
+  #devise controller overrides
+  devise_for :users, controllers: { sessions: "users/sessions", registrations: 'users/registrations' }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
