@@ -33,21 +33,23 @@ J.list.saveToDatabase = function(){
 
 
 J.list.retrieveFromDatabase = function(){
-  
+  console.log('retrieving...');
   var retrieved;
   function constructList(){
+    $('.pack-list').empty();
     for (var key in retrieved) {
+      console.log('yeap');
       var obj = retrieved[key];
       console.log(obj);
       var $el = J.list.constructListItem( obj.label, obj.checked );
-      $('.pack-list').append($el)
+      $('.pack-list').append($el);
     }
   }
 
   //If logged in: retrieve data from DB
   if ( $.cookie("signed_in") == 1 ){
     $.ajax({
-      url: "pack_list/retrieve_from_db", 
+      url: "/pack_list/retrieve_from_db", 
       type: "POST",
       success: function(result){
         if (result){
@@ -97,8 +99,7 @@ J.list.init = function(){
 
   
 }
-
-$(document).ready(function(){
+$(document).on('ready page:load', function () {
   J.list.init(); 
 })
 
