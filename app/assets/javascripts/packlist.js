@@ -16,7 +16,7 @@ J.list.saveToDatabase = function(){
   if ( jQuery.cookie("signed_in") == 1 ){
     console.log('signed in')
     $.ajax({
-      url: "pack_list/save_to_db", 
+      url: "/pack_list/save_to_db", 
       type: "POST",
       data: { list: JSON.stringify( saveData ) },
       success: function(result){
