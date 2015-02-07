@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'subpages/safety_status'
+
+  get 'subpages/vaccinations'
+
   root "pack_list#index"
   get 'pack_list/index'
   post 'pack_list/save_to_db'
