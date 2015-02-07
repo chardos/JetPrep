@@ -11,6 +11,8 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require select2
+ *= require select2-bootstrap
  *= require_self
  */
 @import "bootstrap-sprockets";
@@ -24,6 +26,10 @@
 h1{
   margin-bottom: 30px;
 }
+
+/* ========================================================
+/*   NAV
+/* ======================================================*/
 
 .nav{
   border-bottom: 1px solid #ccc;
@@ -44,6 +50,20 @@ h1{
   padding-top: 20px;
   float: right;
 }
+
+/* ========================================================
+/*   COUNTRY SELECT
+/* ======================================================*/
+
+.country-dropdown{
+  display: block;
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+/* ========================================================
+/*   PACK LIST
+/* ======================================================*/
 
 .pack-list{
   padding-left: 0;
@@ -110,6 +130,11 @@ h1{
 .is-editing .pack-list__input{
   display: block;
 }
+
+
+
+
+
 
 
 

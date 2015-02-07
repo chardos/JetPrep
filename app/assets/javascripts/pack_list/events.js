@@ -1,7 +1,7 @@
 var J = J || {};
 J.list = J.list || {};
 
-J.list.toggleListItem = function(){
+J.list.toggleListItemInit = function(){
   $('.pack-list').on('click', '.pack-list__checkbox', function(e){
       $(this).parent().toggleClass('is-checked');
       J.list.saveToDatabase();

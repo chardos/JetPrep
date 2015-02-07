@@ -1,9 +1,9 @@
 <div class="nav">
   <div class="container">
-    <h3 class="nav__title"><%= link_to 'Jetprep', pack_list_index_path %></h3>
+    <h3 class="nav__title"><%= link_to 'Jetprep', root_path %></h3>
     <div class="nav__page-links">
-      <%= link_to "Safety status", subpages_safety_status_path, class: 'nav__page-link' %>
-      <%= link_to "Vaccinations", subpages_vaccinations_path, class: 'nav__page-link' %>
+      <%= link_to "Safety status", subpage_safety_status_path, class: 'nav__page-link' %>
+      <%= link_to "Vaccinations", subpage_vaccinations_path, class: 'nav__page-link' %>
       <%= link_to "Packing list", pack_list_index_path, class: 'nav__page-link' %>
     </div>
     <div class="nav__links">
