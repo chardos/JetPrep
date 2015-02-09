@@ -22,6 +22,7 @@ gem 'spring',        group: :development
 
 group :development do
   gem 'awesome_print'
+  gem 'quiet_assets'
 end
 
 group :development, :test do
