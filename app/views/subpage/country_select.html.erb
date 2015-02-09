@@ -1,0 +1,16 @@
+<div class="container" id="country_select">
+  <div class="col-md-8 col-md-offset-2">
+    <h1>Country select</h1>
+
+    <select class="country-dropdown">
+
+      <% Scrape.all.each do |scrape| %>
+        <option value="<%= scrape.country %>"><%= scrape.country %></option>
+      <% end -%>
+    </select>
+
+    <div class="btn btn-primary js-select-country">Start Jetprep</div>
+
+  </div>
+
+</div>

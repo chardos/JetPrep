@@ -33,7 +33,6 @@ J.list.saveToDatabase = function(){
 
 
 J.list.retrieveFromDatabase = function(){
-  console.log('retrieving...');
   var retrieved;
   function constructList(){
     $('.pack-list').empty();
@@ -48,6 +47,7 @@ J.list.retrieveFromDatabase = function(){
 
   //If logged in: retrieve data from DB
   if ( $.cookie("signed_in") == 1 ){
+    console.log('retrieving from DB');
     $.ajax({
       url: "/pack_list/retrieve_from_db", 
       type: "POST",
@@ -61,8 +61,9 @@ J.list.retrieveFromDatabase = function(){
   }
   //If not logged in: retrieve data from COOKIES
   else if ( $.cookie("signed_in") == 0 ){
-    if ( $.cookie().list ){
-      retrieved = JSON.parse($.cookie().list);
+    console.log('retrieving from cookies');
+    if ( $.cookie('list') ){
+      retrieved = JSON.parse($.cookie('list'));
     }
     constructList();
   }
@@ -90,7 +91,7 @@ J.list.sortableInit = function () {
 }
 
 J.list.init = function(){
-  this.toggleListItem();
+  this.toggleListItemInit();
   this.editListItemInit();
   this.deleteListItemInit();
   this.addListItemInit();
@@ -100,7 +101,9 @@ J.list.init = function(){
   
 }
 $(document).on('ready page:load', function () {
-  J.list.init(); 
+  if ( $('#pack_list').length > 0 ){
+    J.list.init(); 
+  }
 })
 
 

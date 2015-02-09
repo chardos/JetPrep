@@ -1,17 +1,18 @@
 source 'https://rubygems.org'
 
 
+gem 'bootstrap-sass'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'compass-rails'
+gem 'devise'
+gem 'jbuilder', '~> 2.0'
+gem 'jquery-rails'
+gem 'mechanize'
 gem 'rails', '4.1.8'
 gem 'sass-rails', '~> 4.0.3'
-gem 'compass-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
+gem 'select2-rails', '~> 3.5.9.2'
 gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'bootstrap-sass'
-gem 'devise'
-gem 'mechanize'
+gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
 
 gem 'sdoc', '~> 0.4.0', group: :doc

@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  get 'subpages/safety_status'
 
-  get 'subpages/vaccinations'
+  
+  root "subpage#country_select"
+  get 'subpage/country_select'
+  get 'subpage/safety_status'
 
-  root "pack_list#index"
+  get 'subpage/vaccinations'
+
   get 'pack_list/index'
   post 'pack_list/save_to_db'
   post 'pack_list/retrieve_from_db'
