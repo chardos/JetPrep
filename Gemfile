@@ -14,6 +14,7 @@ gem 'select2-rails', '~> 3.5.9.2'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
+gem 'pg'
 
 gem 'sdoc', '~> 0.4.0', group: :doc
 
@@ -25,12 +26,7 @@ group :development do
   gem 'quiet_assets'
 end
 
-group :development, :test do
-  gem 'sqlite3'
-end
-
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 
