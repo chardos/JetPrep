@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery.cookie
 //= require sortable
 //= require select2
 //= require_tree .
+//alert( $.cookie('logged_in'))

@@ -11,7 +11,6 @@ gem 'mechanize'
 gem 'rails', '4.1.8'
 gem 'sass-rails', '~> 4.0.3'
 gem 'select2-rails', '~> 3.5.9.2'
-gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever', :require => false
 gem 'pg'

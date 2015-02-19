@@ -1,7 +1,6 @@
 var J = J || {};
 J.list = J.list || {};
-
-J.list.saveToDatabase = function(){
+J.list.saveToDatabase = function(retrieved){
   //get all list items put in object
   var saveData = {};
   $('.pack-list__item').each(function(index){
@@ -12,8 +11,16 @@ J.list.saveToDatabase = function(){
     saveData[index].checked = checked; 
   });
 
+  // if retrieved supplied
+  if (arguments.length > 0){
+    saveData = retrieved;
+    $.removeCookie("list");
+  }
+
+
+
   //If logged in: save data in DB
-  if ( jQuery.cookie("signed_in") == 1 ){
+  if ( $.cookie("logged_in") == 1 ){
     console.log('signed in')
     $.ajax({
       url: "/pack_list/save_to_db", 
@@ -25,9 +32,9 @@ J.list.saveToDatabase = function(){
     });
   }
   //If not logged in: save data in COOKIE
-  else if ( jQuery.cookie("signed_in") == 0 ){
+  else if ( $.cookie("logged_in") == 0 ){
     console.log('signed out')
-    $.cookie("list", JSON.stringify( saveData ), { expires : 999 });
+    $.cookie("list", JSON.stringify( saveData ), { expires : 999, path: '/' });
   }
 }
 
@@ -44,9 +51,8 @@ J.list.retrieveFromDatabase = function(){
       $('.pack-list').append($el);
     }
   }
-
   //If logged in: retrieve data from DB
-  if ( $.cookie("signed_in") == 1 ){
+  if ( $.cookie("logged_in") == 1 ){
     console.log('retrieving from DB');
     $.ajax({
       url: "/pack_list/retrieve_from_db", 
@@ -60,7 +66,7 @@ J.list.retrieveFromDatabase = function(){
     });
   }
   //If not logged in: retrieve data from COOKIES
-  else if ( $.cookie("signed_in") == 0 ){
+  else if ( $.cookie("logged_in") == 0 ){
     console.log('retrieving from cookies');
     if ( $.cookie('list') ){
       retrieved = JSON.parse($.cookie('list'));
@@ -68,14 +74,14 @@ J.list.retrieveFromDatabase = function(){
     constructList();
   }
   //If just registered: retrieve data from COOKIES, then save to DB.
-  else if ( $.cookie("signed_in") == 'Just registered'){
-    if ( $.cookie().list ){
-      retrieved = JSON.parse( $.cookie().list );
+  else if ( $.cookie("logged_in") == 'Just registered'){
+    console.log('js: just registered');
+    console.log($.cookie('list'));
+    if ( $.cookie('list') ){
+      retrieved = JSON.parse($.cookie('list'));
     }
-    constructList();
-    $.cookie("signed_in", 1);
-    J.list.saveToDatabase();
-    $.removeCookie("list");
+    $.cookie("logged_in", 1);
+    J.list.saveToDatabase(retrieved);
   }
   
 }
@@ -91,19 +97,19 @@ J.list.sortableInit = function () {
 }
 
 J.list.init = function(){
-  this.toggleListItemInit();
-  this.editListItemInit();
-  this.deleteListItemInit();
-  this.addListItemInit();
+  if ( $('#pack_list').length > 0 ){
+    this.toggleListItemInit();
+    this.editListItemInit();
+    this.deleteListItemInit();
+    this.addListItemInit();
+    this.sortableInit();
+  }
   this.retrieveFromDatabase();
-  this.sortableInit();
-
   
 }
-$(document).on('ready page:load', function () {
-  if ( $('#pack_list').length > 0 ){
+$(document).on('ready', function () {
+
     J.list.init(); 
-  }
 })
 
 

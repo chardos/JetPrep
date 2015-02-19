@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super
     if resource.save
-      cookies[:signed_in] = 'Just registered'
+      cookies[:logged_in] = 'Just registered'
     end
   end
 
