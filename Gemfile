@@ -25,6 +25,15 @@ group :development do
   gem 'quiet_assets'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+end
+
+group :test do
+  gem 'selenium-webdriver', '2.45.0.dev3'
+end
+
 group :production do
   gem 'rails_12factor'
 end
