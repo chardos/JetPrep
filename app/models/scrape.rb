@@ -1,13 +1,18 @@
 class Scrape < ActiveRecord::Base
 
-  def self.isCountryLink? (link)
-      return true if link['Advice'] != nil
+  def self.isCountryLink? (scrape, link)
+    if scrape == 'safety'
+      return true if link['Advice'] != nil #check if url contains 'advice'
       return false
     end
 
-  def self.go
-    #Scrape.create(country: 'oz')
+    if scrape == 'vacs'
+      return true if link != nil #check if url contains 'advice'
+      return false
+    end
+  end
 
+  def self.safety
     # Scrape all the links into an array
     links = []
     statuses = []
@@ -16,7 +21,7 @@ class Scrape < ActiveRecord::Base
 
     page.search('.topicTitle').each do |country| 
       link = country['href']
-      if self.isCountryLink? (link)
+      if self.isCountryLink?('safety', link)
         links << link
       end
     end
@@ -45,6 +50,33 @@ class Scrape < ActiveRecord::Base
 
       sleep(6)
     end
+  end
+
+  def self.vacs
+    links = []
+
+    mech = Mechanize.new
+    page = mech.get('http://www.netdoctor.co.uk/travel/vaccines/')
+
+    page.search('#main-content a').each do |country| 
+      link = country['href']
+      if self.isCountryLink?('vacs', link)
+        links << link
+      end
+    end
+
+    ap links
+
+    links.each do |link|
+      page = mech.get("http://www.netdoctor.co.uk#{link}")
+      puts link
+
+      country_name = page.search('h1').first.text
+      puts country_name
+
+      sleep(6)
+    end
 
   end
+
 end
